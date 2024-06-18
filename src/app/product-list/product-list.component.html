@@ -1,0 +1,27 @@
+<div class="tw-flex tw-gap-2 tw-justify-center tw-items-center tw-max-w-screen-xl tw-flex-wrap">
+  @for (product of products; track product.id) {
+  <p-card header="{{product.name}}" class="tw-min-h-96" subheader="{{product.category}}">
+    <ng-template pTemplate="header">
+      <img src="{{product.image}}" alt="{{product.name}}" class="tw-w-96 tw-h-96 tw-object-cover">
+    </ng-template>
+    <ng-template pTemplate="content">
+      <div class="product-details">
+        <div class="tw-flex tw-justify-around tw-items-center tw-gap-6">
+          <p class="tw-text-2xl"> ${{product.price}}</p>
+          <div class="tw-flex tw-items-center tw-gap-2">
+            <p class="tw-text-2xl">{{product.size}}</p>
+            <p class="tw-text-sm tw-text-gray-500">size</p>
+
+          </div>
+          <p-tag value="4.42" severity="warning" icon="pi pi-star"></p-tag>
+        </div>
+      </div>
+    </ng-template>
+    <ng-template pTemplate="footer">
+      <p-button severity="info" label="Add to Cart" text="true" rounded="true" icon=" pi pi-shopping-cart"
+        class="tw-mx-2"></p-button>
+      <p-button severity="success" label="Buy Now" rounded="true" icon="pi pi-credit-card"></p-button>
+    </ng-template>
+  </p-card>
+  }
+</div>
