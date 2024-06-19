@@ -18,8 +18,8 @@
       </div>
     </ng-template>
     <ng-template pTemplate="footer">
-      <p-button severity="info" label="Add to Cart" text="true" rounded="true" icon=" pi pi-shopping-cart"
-        class="tw-mx-2"></p-button>
+      <p-button severity="info" [disabled]="product.inCart" (onClick)="product.addToCart(product.id)"
+        label="Add to Cart" text="true" rounded="true" icon=" pi pi-shopping-cart" class="tw-mx-2"></p-button>
       <p-button severity="success" label="Buy Now" rounded="true" icon="pi pi-credit-card"></p-button>
     </ng-template>
   </p-card>

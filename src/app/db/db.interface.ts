@@ -1,15 +1,13 @@
-
-export type Size = "XS" | "S" | "M" | "L" | "XL" | "XXL";
+export type Size = 'XS' | 'S' | 'M' | 'L' | 'XL' | 'XXL';
 
 export interface Product {
-  name : string;
-  price : number;
-  description : string;
-  image : string;
-  category : string;
-  id : number;
+  name: string;
+  price: number;
+  description: string;
+  image: string;
+  category: string;
+  id: number;
   size: Size;
-  ratings?: number[] | undefined; // This is an array of ratings referenced by the rating id
 }
 
 export interface ProductRating {
@@ -27,6 +25,8 @@ export interface User {
 
 export interface Db {
   products: Product[];
+  cart: Product[];
   users: User[];
   productRatings: ProductRating[];
+  authenticatedUser: User | null;
 }

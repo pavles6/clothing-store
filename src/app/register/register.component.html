@@ -1,0 +1,50 @@
+<div class="tw-min-h-[calc(100vh-150px)] tw-rounded-3xl
+  tw-min-w-screen
+  tw-w-[calc(100vw-200px)]
+  tw-bg-gradient-to-r
+  tw-from-sky-500
+  tw-to-fuchsia-400
+  tw-relative
+  ">
+  <div
+    class="tw-bg-white tw-p-4 tw-rounded-md tw-min-h-96 tw-min-w-96 tw-absolute tw-left-1/2 tw-transform -tw-translate-x-1/2 tw-translate-y-1/3">
+    <p class="tw-text-2xl">Register</p>
+    <p class="tw-text-sm">Please fill the data below to create an account</p>
+    <div class="tw-w-full tw-h-0.5 tw-bg-gray-100 tw-my-5"></div>
+    <form [formGroup]="registerFormGroup" (ngSubmit)="register()">
+      <div class="tw-flex tw-flex-col gap-2">
+        <label for="username" class="tw-text-sm">Username</label>
+        <input pInputText id="username" aria-describedby="username-help" class="tw-text-sm"
+          formControlName="username" />
+        @if(registerFormGroup.get('username')?.invalid && registerFormGroup.get('username')?.touched){
+        <small class="p-error tw-text-xs tw-mt-2">Username must be unique and at least 3 characters long</small>
+        }
+        @else {
+        <small class="tw-text-xs tw-mt-2 tw-opacity-0 tw-cursor-default" id="username-help">
+
+          Username must be unique and at least 3 characters long
+        </small>
+        }
+
+      </div>
+      <div class="tw-m-6"></div>
+      <div class="tw-flex tw-flex-col gap-2 tw-mb-5">
+        <label for="displayName" class="tw-text-sm">Your name</label>
+        <input pInputText id="displayName" aria-describedby="displayName-help" class="tw-text-sm"
+          formControlName="displayName" />
+        @if(registerFormGroup.get('displayName')?.invalid && registerFormGroup.get('displayName')?.touched){
+        <small class="p-error tw-text-xs tw-mt-2">Name is required</small>
+        }
+        @else {
+        <small class="tw-text-xs tw-mt-2 tw-opacity-0 tw-cursor-default" id="username-help">
+
+          Username must be unique and at least 3 characters long
+        </small>
+        }
+      </div>
+      <p-button severity="primary" type="submit">Register</p-button>
+
+    </form>
+
+  </div>
+</div>

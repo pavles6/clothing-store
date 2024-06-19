@@ -1,21 +1,38 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
+import { DbService } from '../db/db.service';
+import { User } from '../db/db.interface';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
+  constructor(private db: DbService) {}
 
-  get isAuthenticated() {
-    return localStorage.getItem('isAuthenticated') === 'true';
+  authenticatedUser = signal<User | null>(this.db.authenticatedUser);
+
+  login(username: string): void {
+    const user = this.db.users.find((user) => user.username === username);
+
+    if (user) {
+      this.db.authenticatedUser = user; // set current authenticated user
+      this.authenticatedUser.update(() => user); // update signal
+    }
   }
 
-  set isAuthenticated(value) {
-    localStorage.setItem('isAuthenticated', value.toString());
+  logout(): void {
+    this.db.authenticatedUser = null;
+    this.authenticatedUser.update(() => null);
   }
 
-  login(username: string) {
+  register(username: string, displayName: string): void {
+    const user = {
+      id: this.db.users.length + 1,
+      username,
+      displayName,
+    };
 
-    this.isAuthenticated = true;
-    localStorage.setItem('isAuthenticated', 'true');
+    this.db.user = user; // append to users arr
+    this.db.authenticatedUser = user; // add current authenticated user
+    this.authenticatedUser.update(() => user); // update signal
   }
 }
