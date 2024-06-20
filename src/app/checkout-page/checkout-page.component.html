@@ -1,0 +1,160 @@
+<div class="card flex justify-content-center tw-basis-52">
+  <p-stepper [linear]="true">
+    <p-stepperPanel header="Order information">
+      <ng-template pTemplate="content" let-nextCallback="nextCallback" let-index="index">
+        <div class="tw-flex tw-flex-column tw-h-12rem">
+          <div
+            class="tw-border-2 tw-w-full tw-min-h-80 tw-border-dashed tw-px-4 tw-my-2 tw-rounded-md tw-border-gray-200">
+            @for (product of cart(); track product) {
+            <p-dataView #dv [value]="cart()" class="tw-divide-gray-200">
+              <ng-template let-products pTemplate="list">
+                <div class="tw-flex tw-w- tw-flex-col tw-divide-y tw-divide-solid tw-divide-x-0 ">
+                  <div class="tw-flex tw-bg-red-5 tw-py-10 tw-justify-between tw-gap-10 tw-items-center">
+                    <div class="tw-flex tw-gap-4">
+                      <div>
+                        <img class="tw-object-cover tw-w-32 tw-h-32 tw-rounded-lg" [src]="product.image"
+                          [alt]="product.name" />
+                      </div>
+                      <div>
+                        <h4>{{product.name}} x {{product.count}}</h4>
+                        <p class="tw-text-ellipsis">{{product.description}}</p>
+                        <p-tag icon="pi pi-star-fill" value="{{product.productRating | number : '1.2-2'}}"
+                          [severity]="'warning'" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </ng-template>
+            </p-dataView>
+            }
+            <div class="tw-w-full tw-h-0.5 tw-bg-gray-100 tw-my-6"></div>
+            <h3 class="tw-m-0 tw-mb-6">Total: {{getTotalPrice() | currency}} </h3>
+          </div>
+        </div>
+        <div class="tw-flex tw-pt-4 tw-justify-end">
+          <p-button label="Next" [severity]="'info'" icon="pi pi-arrow-right" iconPos="right"
+            (onClick)="nextCallback.emit()" />
+        </div>
+      </ng-template>
+    </p-stepperPanel>
+    <p-stepperPanel header="Shipping information">
+      <ng-template pTemplate="content" let-prevCallback="prevCallback" let-nextCallback="nextCallback"
+        let-index="index">
+        <div class="tw-flex tw-flex-column tw-h-12rem">
+          <div
+            class="tw-border-2 tw-w-full tw-min-h-80 tw-border-dashed tw-px-4 tw-my-2 tw-rounded-md tw-border-gray-200">
+            @if(!userHasValidShippingInfo()){
+            <h3>Please fill out the following about yourself before continuing:</h3>
+            <ul class="tw-list-inside tw-space-y-4">
+              @for (field of getUserData(); track field) {
+              @if(field.includes('N/A')){
+              <li>{{field.split(':')[0]}}</li>
+              }
+              }
+            </ul>
+            <button pButton class="tw-mb-4" label="Edit your profile" severity="info" icon="pi pi-arrow-right"
+              iconPos="right" (click)="goToProfile()"></button>
+            }
+            @else {<h3>Is this information correct?</h3>
+            <ul class="tw-list-inside tw-space-y-4">
+              @for (field of getUserData(); track field) {
+              <li>{{field}}</li>
+              }
+            </ul>}
+          </div>
+        </div>
+        <div class="tw-flex tw-pt-4 tw-justify-between">
+          <p-button label="Back" [severity]="'info'" icon="pi pi-arrow-left" (onClick)="prevCallback.emit()" />
+          <p-button label="Next" [severity]="'info'" [disabled]="!userHasValidShippingInfo()" icon="pi pi-arrow-right"
+            iconPos="right" (onClick)="nextCallback.emit()" />
+        </div>
+      </ng-template>
+    </p-stepperPanel>
+    <p-stepperPanel header="Place an order">
+      <ng-template pTemplate="content" let-nextCallback="nextCallback" let-prevCallback="prevCallback"
+        let-index="index">
+        <div class="tw-flex tw-flex-column tw-h-12rem">
+          <div
+            class="tw-border-2 tw-w-full tw-min-h-80 tw-border-dashed tw-px-4 tw-my-2 tw-rounded-md tw-border-gray-200">
+            @for (product of cart(); track product) {
+            <p-dataView #dv [value]="cart()" class="tw-divide-gray-200">
+              <ng-template let-products pTemplate="list">
+                <div class="tw-flex tw-w- tw-flex-col tw-divide-y tw-divide-solid tw-divide-x-0 ">
+                  <div class="tw-flex tw-bg-red-5 tw-py-10 tw-justify-between tw-gap-10 tw-items-center">
+                    <div class="tw-flex tw-gap-4">
+                      <div>
+                        <img class="tw-object-cover tw-w-32 tw-h-32 tw-rounded-lg" [src]="product.image"
+                          [alt]="product.name" />
+                      </div>
+                      <div>
+                        <h4>{{product.name}} x {{product.count}}</h4>
+                        <p class="tw-text-ellipsis">{{product.description}}</p>
+                        <p-tag icon="pi pi-star-fill" value="{{product.productRating | number : '1.2-2'}}"
+                          [severity]="'warning'" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </ng-template>
+            </p-dataView>
+            }
+            <div class="tw-w-full tw-h-0.5 tw-bg-gray-100 tw-my-6"></div>
+            <div class="tw-flex tw-mb-6 tw-justify-between tw-items-center">
+              <h3 class="tw-m-0 ">Total: {{getTotalPrice() | currency}} </h3>
+
+            </div>
+          </div>
+        </div>
+        <div class="tw-flex tw-pt-4 tw-justify-between">
+          <p-button label="Back" [severity]="'info'" icon="pi pi-arrow-left" (onClick)="prevCallback.emit()" />
+          <p-button label="Place order" [severity]="'success'" icon="pi pi-check" iconPos="right"
+            (onClick)="nextCallback.emit()" />
+        </div>
+      </ng-template>
+    </p-stepperPanel>
+    <p-stepperPanel header=" How was it?">
+      <ng-template pTemplate="content" let-prevCallback="prevCallback" let-index="index">
+        <div class="tw-flex tw-flex-column tw-h-12rem">
+          <div
+            class="tw-border-2 tw-w-full tw-min-h-80 tw-border-dashed tw-px-4 tw-my-2 tw-rounded-md tw-border-gray-200">
+            <h3>Feel free to tell us more about your new clothes!</h3>
+            <p-toast />
+            @for (product of cart(); track product) {
+            <p-dataView #dv [value]="cart()" class="tw-divide-gray-200">
+              <ng-template let-products pTemplate="list">
+                <div class="tw-flex tw-w- tw-flex-col tw-divide-y tw-divide-solid tw-divide-x-0 ">
+                  <div class="tw-flex tw-bg-red-5 tw-py-10 tw-justify-between tw-gap-10 tw-items-center">
+                    <div class="tw-flex tw-gap-4">
+                      <div>
+                        <img class="tw-object-cover tw-w-32 tw-h-32 tw-rounded-lg" [src]="product.image"
+                          [alt]="product.name" />
+                      </div>
+                      <div>
+                        <h4>{{product.name}} x {{product.count}}</h4>
+                        <p class="tw-text-ellipsis">{{product.description}}</p>
+                      </div>
+                    </div>
+                  </div>
+                  <form [formGroup]="productRatingForm" class="tw-border-none" style="border: none;"
+                    (submit)="addRating(product.id)">
+                    <div class="tw-flex tw-gap-4 tw-w-full tw-items-center tw-justify-center tw-mt-5">
+                      <p-rating [cancel]="false" formControlName="rating" [stars]="5"></p-rating>
+                      <p-button label="Submit" [disabled]="!productRatingForm.touched" type="submit"
+                        [severity]="'success'" />
+                    </div>
+                  </form>
+                </div>
+                <div class="tw-w-full tw-h-0.5 tw-bg-gray-100 tw-my-6"></div>
+              </ng-template>
+            </p-dataView>
+            }
+
+          </div>
+        </div>
+        <div class="tw-flex tw-pt-4 tw-justify-center">
+          <p-button label="Finish" (onClick)="goToHome()" />
+        </div>
+      </ng-template>
+    </p-stepperPanel>
+  </p-stepper>
+</div>

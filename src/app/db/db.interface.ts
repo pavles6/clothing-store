@@ -21,6 +21,12 @@ export interface User {
   id: number;
   username: string;
   displayName: string;
+  phoneNumber: string;
+  email: string;
+  country: string;
+  city: string;
+  address: string;
+  zipCode: string;
 }
 
 export interface Db {

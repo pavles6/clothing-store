@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, computed } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import {
   FormsModule,
@@ -21,11 +21,17 @@ import { InputTextModule } from 'primeng/inputtext';
   styleUrl: './login.component.css',
 })
 export class LoginComponent {
+  user = computed(() => this.authService.authenticatedUser());
+
   constructor(
     private authService: AuthService,
     private router: Router,
     private dbService: DbService
-  ) {}
+  ) {
+    if (this.user() !== null) {
+      this.router.navigate(['/profile']);
+    }
+  }
 
   loginFormControl = new FormGroup({
     username: new FormControl('', [

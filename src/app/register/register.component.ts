@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, computed } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -23,13 +23,17 @@ import { ButtonModule } from 'primeng/button';
   styleUrl: './register.component.css',
 })
 export class RegisterComponent {
-  user: User | null = null;
+  user = computed(() => this.authService.authenticatedUser());
 
   constructor(
     private authService: AuthService,
     private router: Router,
     private dbService: DbService
-  ) {}
+  ) {
+    if (this.user() !== null) {
+      this.router.navigate(['/profile']);
+    }
+  }
 
   register(): void {
     if (this.registerFormGroup.valid) {

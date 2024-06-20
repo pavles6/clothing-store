@@ -1,1 +1,138 @@
-<p>profile-page works!</p>
+<div class="tw-flex tw-min-w-full tw-flex-col tw-items-center">
+  <h3>Hello, {{user()?.displayName}}</h3>
+  <div class="flex" class=" tw-bg-gray-100 tw-w-full tw-rounded-xl tw-p-20 tw-pt-0">
+    <div class="flex tw-w-full tw-justify-between tw-p-10">
+      <h4>Your Profile</h4>
+      <div class="tw-w-full tw-h-0.5 tw-bg-gray-200 tw-my-5"></div>
+      <form [formGroup]="userForm" (ngSubmit)="confirmProfileUpdate($event)">
+        <div class="tw-flex tw-flex-col gap-2">
+          <label for="username" class="tw-text-sm">Username*</label>
+          <input [value]="userForm.get('username')!.value" pInputText id="username" aria-describedby="username-help"
+            class="tw-text-sm" formControlName="username" />
+          @if(userForm.get('username')?.invalid && userForm.get('username')?.touched){
+          <small class="p-error tw-text-xs tw-mt-2">Username must be unique and at least 3 characters long</small>
+          }
+          @else {
+          <small class="tw-text-xs tw-mt-2 tw-opacity-0 tw-cursor-default" id="username-help">
+
+            Username must be unique and at least 3 characters long
+          </small>
+          }
+
+        </div>
+        <div class="tw-flex tw-flex-col gap-2">
+          <label for="displayName" class="tw-text-sm">Your name*</label>
+          <input [value]="userForm.get('displayName')!.value" pInputText id="displayName"
+            aria-describedby="displayName-help" class="tw-text-sm" formControlName="displayName" />
+          @if(userForm.get('displayName')?.invalid && userForm.get('displayName')?.touched){
+          <small class="p-error tw-text-xs tw-mt-2">Please enter your name</small>
+          }
+          @else {
+          <small class="tw-text-xs tw-mt-2 tw-opacity-0 tw-cursor-default" id="username-help">
+
+            Please enter your name
+          </small>
+          }
+
+        </div>
+        <div class="tw-flex tw-flex-col gap-2">
+          <label for="phoneNumber" class="tw-text-sm">Phone number</label>
+          <input [value]="userForm.get('phoneNumber')!.value" pInputText id="phoneNumber"
+            aria-describedby="phoneNumber-help" class="tw-text-sm" formControlName="phoneNumber" />
+          @if(userForm.get('phoneNumber')?.invalid && userForm.get('phoneNumber')?.touched){
+          <small class="p-error tw-text-xs tw-mt-2">Please enter a valid phone number</small>
+          }
+          @else {
+          <small class="tw-text-xs tw-mt-2 tw-opacity-0 tw-cursor-default" id="phoneNumber-help">
+
+            Please enter a valid phone number
+          </small>
+          }
+
+        </div>
+        <div class="tw-flex tw-flex-col gap-2">
+          <label for="email" class="tw-text-sm">email</label>
+          <input [value]="userForm.get('email')!.value" pInputText id="email" aria-describedby="email-help"
+            class="tw-text-sm" formControlName="email" />
+          @if(userForm.get('email')?.invalid && userForm.get('email')?.touched){
+          <small class="p-error tw-text-xs tw-mt-2">Please enter a valid email address</small>
+          }
+          @else {
+          <small class="tw-text-xs tw-mt-2 tw-opacity-0 tw-cursor-default" id="email-help">
+
+            Please enter a valid email address
+          </small>
+          }
+
+        </div>
+        <div class="tw-flex tw-flex-col gap-2">
+          <label for="country" class="tw-text-sm">country</label>
+          <input [value]="userForm.get('country')!.value" pInputText id="country" aria-describedby="country-help"
+            class="tw-text-sm" formControlName="country" />
+          @if(userForm.get('country')?.invalid && userForm.get('country')?.touched){
+          <small class="p-error tw-text-xs tw-mt-2">country must be unique and at least 3 characters long</small>
+          }
+          @else {
+          <small class="tw-text-xs tw-mt-2 tw-opacity-0 tw-cursor-default" id="country-help">
+
+            country must be unique and at least 3 characters long
+          </small>
+          }
+
+        </div>
+        <div class="tw-flex tw-flex-col gap-2">
+          <label for="city" class="tw-text-sm">city</label>
+          <input [value]="userForm.get('city')!.value" pInputText id="city" aria-describedby="city-help"
+            class="tw-text-sm" formControlName="city" />
+          @if(userForm.get('city')?.invalid && userForm.get('city')?.touched){
+          <small class="p-error tw-text-xs tw-mt-2">city must be unique and at least 3 characters long</small>
+          }
+          @else {
+          <small class="tw-text-xs tw-mt-2 tw-opacity-0 tw-cursor-default" id="city-help">
+
+            city must be unique and at least 3 characters long
+          </small>
+          }
+
+        </div>
+        <div class="tw-flex tw-flex-col gap-2">
+          <label for="address" class="tw-text-sm">address</label>
+          <input [value]="userForm.get('address')!.value" pInputText id="address" aria-describedby="address-help"
+            class="tw-text-sm" formControlName="address" />
+          @if(userForm.get('address')?.invalid && userForm.get('address')?.touched){
+          <small class="p-error tw-text-xs tw-mt-2">address must be unique and at least 3 characters long</small>
+          }
+          @else {
+          <small class="tw-text-xs tw-mt-2 tw-opacity-0 tw-cursor-default" id="address-help">
+
+            address must be unique and at least 3 characters long
+          </small>
+          }
+
+        </div>
+        <div class="tw-flex tw-flex-col gap-2">
+          <label for="zipCode" class="tw-text-sm">zipCode</label>
+          <input [value]="userForm.get('zipCode')!.value" pInputText id="zipCode" aria-describedby="zipCode-help"
+            class="tw-text-sm" formControlName="zipCode" />
+          @if(userForm.get('zipCode')?.invalid && userForm.get('zipCode')?.touched){
+          <small class="p-error tw-text-xs tw-mt-2">zipCode must be unique and at least 3 characters long</small>
+          }
+          @else {
+          <small class="tw-text-xs tw-mt-2 tw-opacity-0 tw-cursor-default" id="zipCode-help">
+
+            zipCode must be unique and at least 3 characters long
+          </small>
+          }
+
+        </div>
+        <div class="tw-flex tw-w-full tw-items-center tw-justify-center">
+          <p-toast />
+          <p-confirmDialog />
+          <p-button type="submit" label="Update your profile" class="tw-m-2" [disabled]="!isFormValid()"></p-button>
+        </div>
+      </form>
+
+    </div>
+
+  </div>
+</div>

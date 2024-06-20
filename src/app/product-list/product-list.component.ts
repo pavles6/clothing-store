@@ -5,16 +5,18 @@ import { DbService } from '../db/db.service';
 import { Product } from '../db/db.interface';
 import { TagModule } from 'primeng/tag';
 import { CartService } from '../cart/cart.service';
+import { DecimalPipe } from '@angular/common';
 
 export interface ProductListProduct extends Product {
   addToCart: (productId: number) => void;
   inCart: boolean;
+  productRating: number;
 }
 
 @Component({
   selector: 'app-product-list',
   standalone: true,
-  imports: [CardModule, ButtonModule, TagModule],
+  imports: [CardModule, ButtonModule, TagModule, DecimalPipe],
   templateUrl: './product-list.component.html',
   providers: [DbService],
   styleUrl: './product-list.component.css',
@@ -24,18 +26,26 @@ export class ProductListComponent {
   cart = computed(() => this.cartService.cart());
 
   addToCart = (productId: number): void => {
-    const product = this.db.products.find(
+    const product = this.dbService.products.find(
       (product) => product.id === productId
     );
     this.cartService.addItemToCart(product as Product);
   };
 
-  constructor(private db: DbService, private cartService: CartService) {
+  constructor(private dbService: DbService, private cartService: CartService) {
     effect(() => {
-      this.products = this.db.products.map((product) => ({
+      this.products = this.dbService.products.map((product) => ({
         ...product,
         inCart: this.cartService.isProductInCart(product),
         addToCart: () => this.addToCart(product.id),
+        productRating: this.dbService
+          .getProductRatingsForProduct(product.id)
+          .reduce<number>((acc, curr, i, products) => {
+            if (i === products.length - 1) {
+              return (acc += curr.rating) / products.length;
+            }
+            return (acc += curr.rating);
+          }, 0),
       }));
     });
   }

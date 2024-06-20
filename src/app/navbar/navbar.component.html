@@ -3,7 +3,7 @@
     <ng-container *ngIf="item.route; else urlRef">
       <a [routerLink]="item.route" class="p-menuitem-link">
         @if(cartSize && cartSize > 0 && item.label === 'Cart'){
-        <i [class]="item.icon" class="tw-text-2xl" pBadge [value]="cartSize ? cartSize : 0"></i>
+        <i [class]="item.icon" class="tw-text-2xl" pBadge [value]="getCartCount()"></i>
 
         }
         @else

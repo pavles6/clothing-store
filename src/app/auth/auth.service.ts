@@ -29,6 +29,12 @@ export class AuthService {
       id: this.db.users.length + 1,
       username,
       displayName,
+      phoneNumber: '',
+      email: '',
+      country: '',
+      city: '',
+      address: '',
+      zipCode: '',
     };
 
     this.db.user = user; // append to users arr

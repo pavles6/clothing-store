@@ -89,6 +89,10 @@ export class NavbarComponent {
     },
   ];
 
+  getCartCount() {
+    return this.cartService.cartCount();
+  }
+
   constructor(private auth: AuthService, private cartService: CartService) {
     effect(() => {
       this.items =

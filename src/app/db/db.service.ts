@@ -47,13 +47,35 @@ export class DbService {
     this.db.write();
   }
 
+  updateUser(user: User): void {
+    this.db.data.users = this.db.data.users.map((u) =>
+      u.id === user.id ? user : u
+    );
+
+    if (this.authenticatedUser?.id === user.id) {
+      this.authenticatedUser = user;
+    }
+
+    this.db.write();
+  }
+
   get productRatings() {
     return this.db.data.productRatings;
   }
 
-  set productRating(rating: ProductRating) {
+  setProductRating(rating: ProductRating): boolean {
+    const ratingFromSameUser = this.db.data.productRatings.find(
+      (r) => r.productId === rating.productId && r.userId === rating.userId
+    );
+
+    if (ratingFromSameUser) {
+      return false;
+    }
+
     this.db.data.productRatings.push(rating);
     this.db.write();
+
+    return true;
   }
 
   getProductRatingsForProduct(productId: number): ProductRating[] {
