@@ -6,6 +6,11 @@
 * TailwindCSS
 * LowDB
 
+### Istaknuto:
+* Simulacija baze podataka uz pomoc local storage-a i LowDB biblioteke
+* zasticene rute u odnosu na to da li je korisnik ulogovan
+* Podaci se perzistiraju dokle god se rucno ne obrise `localStorage` pomocu `localStorage.clear()`
+
 
 ### Funkcionalnosti aplikacije:
 
