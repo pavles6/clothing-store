@@ -1,6 +1,6 @@
 <div class="tw-flex tw-gap-2 tw-justify-center tw-items-center tw-max-w-screen-xl tw-flex-wrap">
   @for (product of products; track product.id) {
-  <p-card header="{{product.name}}" class="tw-min-h-96" subheader="{{product.category}}">
+  <p-card header="{{product.name}}" class="tw-min-h-96" subheader="{{product.description}}">
     <ng-template pTemplate="header">
       <img src="{{product.image}}" alt="{{product.name}}" class="tw-w-96 tw-h-96 tw-object-cover">
     </ng-template>
