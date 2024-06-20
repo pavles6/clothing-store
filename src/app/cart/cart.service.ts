@@ -21,4 +21,12 @@ export class CartService {
       return newCart;
     });
   }
+
+  removeItemFromCart(product: Product): void {
+    this.cart.update((cart) => {
+      const newCart = cart.filter((p) => p.id !== product.id);
+      this.db.cart = newCart;
+      return newCart;
+    });
+  }
 }

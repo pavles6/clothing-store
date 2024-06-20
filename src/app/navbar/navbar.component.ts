@@ -66,11 +66,9 @@ export class NavbarComponent {
       badge: '-1',
     },
     {
-      label: 'Logout',
-      icon: 'pi pi-fw pi-sign-out',
-      command: () => {
-        this.auth.logout();
-      },
+      label: 'Profile',
+      icon: 'pi pi-fw pi-user',
+      route: '/profile',
     },
     {
       label: 'More',
@@ -79,6 +77,13 @@ export class NavbarComponent {
           label: 'Repository',
           icon: 'pi pi-fw pi-github',
           url: 'https://github.com/pavles6/clothing-store',
+        },
+        {
+          label: 'Logout',
+          icon: 'pi pi-fw pi-sign-out',
+          command: () => {
+            this.auth.logout();
+          },
         },
       ],
     },

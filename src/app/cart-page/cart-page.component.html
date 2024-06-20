@@ -1,1 +1,42 @@
-<p>cart-page works!</p>
+<div class="tw-flex tw-flex-col tw-items-center">
+  <h2>Your cart ({{cart().length}} items)</h2>
+  <p-dataView #dv [value]="cart()" class="">
+    <ng-template let-products pTemplate="list">
+      <div class="tw-flex tw-w- tw-flex-col tw-divide-y tw-divide-gray-200 tw-divide-solid tw-divide-x-0 ">
+
+        @for (product of products; track product) {
+        <div class="tw-flex tw-bg-red-5 tw-py-10 tw-justify-between tw-gap-10 tw-items-center">
+          <div class="tw-flex tw-gap-4">
+            <div>
+              <img class="tw-object-cover tw-w-32 tw-h-32 tw-rounded-lg" [src]="product.image" [alt]="product.name" />
+            </div>
+            <div>
+              <h4>{{product.name}}</h4>
+              <p class="tw-text-ellipsis">{{product.description}}</p>
+              <p-tag icon="pi pi-star-fill" [value]="product.productRating" [severity]="'warning'" />
+            </div>
+          </div>
+          <div class="tw-flex tw-items-end tw-flex-col">
+            <h3>{{product.price | currency}}</h3>
+            <div class="tw-flex tw-gap-2">
+              <button pButton type="button" icon="pi pi-trash" [severity]="'danger'" [outlined]="true"
+                (click)="removeCartItem(product)"></button>
+              <button pButton type="button" icon="pi pi-shopping-cart" [severity]="'primary'">
+                <p class="tw-m-0 tw-pl-1">Buy now
+                </p>
+              </button>
+            </div>
+          </div>
+        </div>
+        }
+      </div>
+    </ng-template>
+  </p-dataView>
+  <div class="tw-w-full tw-h-0.5 tw-bg-gray-100 tw-my-5"></div>
+  <div class="tw-flex tw-w-full tw-justify-end">
+    <button pButton icon="pi pi-shopping-bag" severity="success">
+      <p class="tw-m-0 tw-pl-2">Checkout</p>
+    </button>
+
+  </div>
+</div>
